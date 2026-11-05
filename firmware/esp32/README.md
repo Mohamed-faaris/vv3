@@ -33,7 +33,7 @@ Install **ESP32Servo** through Arduino IDE Library Manager.
 4. Upload the sketch.
 5. Connect your phone or computer to the ESP32 Wi-Fi network:
    - SSID: `ESP32-Light-Servo`
-   - Password: `lightservo26`
+   - Password: `123456789`
 6. Open **http://192.168.4.1** in a browser.
 
 The ESP32 runs its own access point; an internet connection is not required. Change `Settings::AP_PASSWORD` in the sketch before deployment.
@@ -81,6 +81,6 @@ The API is intended for clients connected to the ESP32's password-protected loca
 
 ## Startup defaults
 
-- All LEDs start OFF.
-- Servo is commanded to 90°.
+- All three LEDs start ON.
+- Servo starts at the configured target angle for LED 3 (150° by default; saved NVS angle takes precedence).
 - Per-light servo target defaults are 30°, 90° and 150°; saved values in NVS override these defaults.
