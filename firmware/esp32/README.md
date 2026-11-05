@@ -23,11 +23,29 @@ ESP32 firmware with a local Wi-Fi web dashboard and Serial CLI for three LEDs an
 - [ESP32Servo](https://github.com/madhephaestus/ESP32Servo) library
 - ESP32 core libraries: WiFi, WebServer, Preferences (included with the ESP32 board package)
 
-Install **ESP32Servo** through Arduino IDE Library Manager.
+Install **ESP32Servo** through Arduino IDE Library Manager or run:
+
+```bash
+arduino-cli core update-index
+arduino-cli core install esp32:esp32
+arduino-cli lib install ESP32Servo
+```
+
+### Compile and upload with Arduino CLI
+
+Run these commands from the repository root (the directory containing `firmware/`):
+
+```bash
+arduino-cli compile --fqbn esp32:esp32:esp32 firmware/esp32/esp32
+arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 firmware/esp32/esp32
+arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
+```
+
+The sketch directory and its main file are both named `esp32`, as required by Arduino CLI. Replace `/dev/ttyUSB0` if your ESP32 appears on a different port.
 
 ## Upload and open the dashboard
 
-1. Open `esp32_led_servo.ino` in Arduino IDE.
+1. Open `esp32/esp32.ino` in Arduino IDE.
 2. Select your ESP32 board and serial port.
 3. Install ESP32Servo.
 4. Upload the sketch.
