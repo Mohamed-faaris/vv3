@@ -6,7 +6,7 @@
  * Servo signal: GPIO 18
  *
  * Wi-Fi AP: ESP32-Light-Servo
- * AP password: lightservo26 (change before deployment)
+ * AP password: 123456789 (change before deployment)
  * Dashboard: http://192.168.4.1
  *
  * Serial baud: 115200, line ending: Newline
@@ -31,7 +31,7 @@ constexpr int SERVO_MAX_US = 2500;
 constexpr int SERVO_HOME_ANGLE = 90;
 constexpr size_t COMMAND_BUFFER_SIZE = 64;
 constexpr char AP_SSID[] = "ESP32-Light-Servo";
-constexpr char AP_PASSWORD[] = "lightservo26"; // Change before deployment.
+constexpr char AP_PASSWORD[] = "123456789"; // Change before deployment.
 }
 
 Servo servo;
@@ -41,7 +41,7 @@ Preferences preferences;
 char commandBuffer[Settings::COMMAND_BUFFER_SIZE];
 size_t commandLength = 0;
 
-bool ledStates[3] = {false, false, false};
+bool ledStates[3] = {true, true, true};
 int ledServoAngles[3] = {30, 90, 150};
 int currentServoAngle = Settings::SERVO_HOME_ANGLE;
 int activeServoLed = -1;
@@ -322,7 +322,7 @@ void setup() {
 
   for (uint8_t pin : Pins::LEDS) {
     pinMode(pin, OUTPUT);
-    digitalWrite(pin, LOW);
+    digitalWrite(pin, HIGH);
   }
 
   preferences.begin("lightservo", false);
@@ -333,7 +333,8 @@ void setup() {
 
   servo.setPeriodHertz(50);
   servo.attach(Pins::SERVO, Settings::SERVO_MIN_US, Settings::SERVO_MAX_US);
-  setServoAngle(Settings::SERVO_HOME_ANGLE);
+  setServoAngle(ledServoAngles[2]);
+  activeServoLed = 2;
 
   Serial.println(F("\nESP32 LED + MG996R CONTROLLER READY"));
   printHelp();
